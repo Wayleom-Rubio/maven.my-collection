@@ -48,6 +48,8 @@ public class MyArrayList<SomeType extends Object> implements MyCollectionInterfa
 
     @Override
     public SomeType get(int indexOfElement) {
+        if(indexOfElement > -1 && indexOfElement < index)
+            return content[indexOfElement];
         return null;
     }
 
@@ -61,11 +63,31 @@ public class MyArrayList<SomeType extends Object> implements MyCollectionInterfa
 
     @Override
     public Integer size() {
-        return null;
+        return index;
     }
 
     @Override
     public Iterator iterator() {
-        return null;
+        return new MyArrayListIterator<>(this);
+    }
+
+    public static class MyArrayListIterator<SomeType> implements Iterator<SomeType> {
+        private MyArrayList<SomeType> list;
+        private int currentIndex;
+
+        public MyArrayListIterator(MyArrayList<SomeType> list) {
+            this.list = list;
+            this.currentIndex = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < list.size();
+        }
+
+        @Override
+        public SomeType next() {
+            return list.get(currentIndex++);
+        }
     }
 }
