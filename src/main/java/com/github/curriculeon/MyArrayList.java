@@ -39,11 +39,32 @@ public class MyArrayList<SomeType extends Object> implements MyCollectionInterfa
     @Override
     public void remove(SomeType objectToRemove) {
 
+        SomeType[] array = (SomeType[]) new Object[content.length];
+        Integer newIndex = 0;
+        for (SomeType currentElement : content) {
+            if (currentElement == null) continue;
+            if (!currentElement.equals(objectToRemove))
+            {
+                array[newIndex] = currentElement;
+                newIndex++;
+            }
+            else index--;
+        }
+        content = array;
     }
 
     @Override
     public void remove(int indexOfObjectToRemove) {
 
+        SomeType[] array = (SomeType[]) new Object[content.length-1];
+        int track = 0;
+        for(int i = 0; i < content.length; i++)
+            if (i != indexOfObjectToRemove) {
+                array[track] = content[i];
+                track++;
+            }
+        content = array;
+        index--;
     }
 
     @Override
